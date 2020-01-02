@@ -4,6 +4,11 @@ function degToRad(degrees) {
     return (degrees * Math.PI) / 180;
 }
 
+/*
+    // TODOS:
+        styling the turtle
+*/
+
 class Turtle {
     constructor(x = 0, y = 0, windowWidth = 100, windowHeight = 100) {
         console.log(
@@ -53,6 +58,12 @@ class Turtle {
         this.currentProcessIndex = 0;
     }
 
+    setStyles(styles) {
+        for (let style in styles) {
+            this.turtle.setAttributeNS(null, style, styles[style]);
+        }
+    }
+
     getX() {
         return this.x;
     }
@@ -63,6 +74,10 @@ class Turtle {
 
     getHeading() {
         return this.heading; // in radians
+    }
+
+    setHeading(degrees) {
+        this.heading = degToRad(degrees);
     }
 
     getSpeed() {
@@ -83,7 +98,7 @@ class Turtle {
     setSpeed(speed) {
         // adding to dParts list for later processing
         this.dParts.push({
-            type: 'b',
+            type: "speed",
             values: [speed]
         })
     }
@@ -136,7 +151,7 @@ class Turtle {
 
     _animate(el) {
         switch (el.type) {
-            case 'M': {
+            case "M": {
                 this.x = el.values[0];
                 this.y = el.values[0];
                 this.path += ` M ${el.values[0]} ${el.values[1]}`;
@@ -148,7 +163,7 @@ class Turtle {
                 this._animateNext();
                 break;
             }
-            case 'L': {
+            case "L": {
                 nx = el.values[0];
                 ny = el.values[1];
                 duration =
@@ -160,7 +175,7 @@ class Turtle {
                 this._linearAnimate();
                 break;
             }
-            case 'b': {
+            case "speed": {
                 this.speed = el.values[0];
                 this._animateNext()
                 break;

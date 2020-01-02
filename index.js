@@ -33,6 +33,11 @@ function coolDesign() {
 }
 
 function test() {
+    turtle.setStyles({
+        "stroke": "red",
+        "stroke-width": "3px",
+        "fill": "blue"
+    });
     turtle.moveTo(100, 100);
     turtle.backward(100);
     turtle.moveTo(200, 200);
@@ -42,6 +47,7 @@ function test() {
     turtle.setSpeed(1);
     turtle.moveTo(300, 300);
     turtle.forward(100);
+    turtle.setHeading(270);
     turtle.home();
     turtle.rotate(120);
     turtle.forward(200);
