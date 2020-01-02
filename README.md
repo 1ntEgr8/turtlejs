@@ -4,7 +4,7 @@
 
 Using script tag
 ``` html
-<script src="https://cdn.jsdelivr.net/gh/1ntEgr8/turtlejs/turtle.js></script>
+<script src="https://cdn.jsdelivr.net/gh/1ntEgr8/turtlejs/turtle.js"></script>
 ```
 
 Using npm
