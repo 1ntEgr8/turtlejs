@@ -59,15 +59,20 @@ class Turtle {
     }
 
     setStyles(styles) {
-        for (let style in styles) {
-            this.turtle.setAttributeNS(null, style, styles[style]);
-        }
+        this.dParts.push({
+            type: "style",
+            values: styles
+        });
+    }
+
+    shouldAnimate(isAnim) {
+        this.isAnim = isAnim;
     }
 
     getX() {
         return this.x;
     }
-    
+
     getY() {
         return this.y;
     }
@@ -92,7 +97,7 @@ class Turtle {
         return {
             x: this.x,
             y: this.y
-        }
+        };
     }
 
     setSpeed(speed) {
@@ -100,14 +105,14 @@ class Turtle {
         this.dParts.push({
             type: "speed",
             values: [speed]
-        })
+        });
     }
 
     forward(distance) {
         this.x = this.x + distance * Math.cos(this.heading);
         this.y = this.y + distance * Math.sin(this.heading);
         this.dParts.push({
-            type: 'L',
+            type: "L",
             values: [this.x, this.y]
         });
     }
@@ -124,7 +129,7 @@ class Turtle {
         this.x = x;
         this.y = y;
         this.dParts.push({
-            type: 'M',
+            type: "M",
             values: [this.x, this.y]
         });
     }
@@ -153,13 +158,9 @@ class Turtle {
         switch (el.type) {
             case "M": {
                 this.x = el.values[0];
-                this.y = el.values[0];
+                this.y = el.values[1];
                 this.path += ` M ${el.values[0]} ${el.values[1]}`;
-                this.turtle.setAttributeNS(
-                    null,
-                    "d",
-                    this.path
-                );
+                this.turtle.setAttributeNS(null, "d", this.path);
                 this._animateNext();
                 break;
             }
@@ -167,7 +168,8 @@ class Turtle {
                 nx = el.values[0];
                 ny = el.values[1];
                 duration =
-                    Math.sqrt(Math.pow(nx - this.x, 2) + Math.pow(ny - this.y, 2)) / this.speed;
+                    Math.sqrt(Math.pow(nx - this.x, 2) + Math.pow(ny - this.y, 2)) /
+                    this.speed;
                 dx = ((nx - this.x) * 16) / duration;
                 dy = ((ny - this.y) * 16) / duration;
                 startTime = Date.now();
@@ -177,7 +179,14 @@ class Turtle {
             }
             case "speed": {
                 this.speed = el.values[0];
-                this._animateNext()
+                this._animateNext();
+                break;
+            }
+            case "style": {
+                for (let style in el.values) {
+                    this.turtle.setAttributeNS(null, style, el.values[style]);
+                }
+                this._animateNext();
                 break;
             }
             default:
@@ -192,11 +201,13 @@ class Turtle {
         if (time - startTime > duration) {
             this.x = nx;
             this.y = ny;
-            this.path += ` L ${this.x} ${this.y}`; 
+            this.path += ` L ${this.x} ${this.y}`;
             this.turtle.setAttributeNS(null, "d", this.path);
             this._animateNext();
         } else {
-            const path = `${this.turtle.getAttributeNS(null, "d")} L ${this.x} ${this.y}`;
+            const path = `${this.turtle.getAttributeNS(null, "d")} L ${this.x} ${
+                this.y
+                }`;
             this.turtle.setAttributeNS(null, "d", path);
             requestAnimationFrame(this._linearAnimate.bind(this));
         }
@@ -219,6 +230,6 @@ class Turtle {
             });
             this.path += s;
         });
-        this.turtle.setAttributeNS(null, 'd', this.path);
+        this.turtle.setAttributeNS(null, "d", this.path);
     }
 }

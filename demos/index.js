@@ -1,4 +1,5 @@
-const turtle = new Turtle(400, 400, 1000, 1000);
+const turtle = new Turtle(0, 0, 1000, 500);
+turtle.setSpeed(1);
 
 function fractal(length, depth) {
     if (depth == 0) {
@@ -15,18 +16,22 @@ function fractal(length, depth) {
 }
 
 function coolDesign() {
+    turtle.moveTo(300, 250);
     for (let i = 0; i < 120; i++) {
-        turtle.forward(200);
+        turtle.setStyles({
+            "fill": `hsla(${(2*i) % 360}, 100%, 50%, 1)`
+        });
+        turtle.forward(100);
         turtle.rotate(61);
-        turtle.forward(200);
+        turtle.forward(100);
         turtle.rotate(61);
-        turtle.forward(200);
+        turtle.forward(100);
         turtle.rotate(61);
-        turtle.forward(200);
+        turtle.forward(100);
         turtle.rotate(61);
-        turtle.forward(200);
+        turtle.forward(100);
         turtle.rotate(61);
-        turtle.forward(200);
+        turtle.forward(100);
         turtle.rotate(61);
         turtle.rotate(11.1111);
     }
@@ -54,6 +59,5 @@ function test() {
 }
 
 // fractal(1000, 5);
-// coolDesign();
-test();
+coolDesign();
 turtle.done();
