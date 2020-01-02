@@ -1,20 +1,18 @@
-const turtle = new Turtle(400, 400, 1000, 1000);
+const turtle = new Turtle(0, 0, 1000, 1000);
 
-for (let i = 0; i < 120; i++) {
-    turtle.forward(200);
-    turtle.rotate(61);
-    turtle.forward(200);
-    turtle.rotate(61);
-    turtle.forward(200);
-    turtle.rotate(61);
-    turtle.forward(200);
-    turtle.rotate(61);
-    turtle.forward(200);
-    turtle.rotate(61);
-    turtle.forward(200);
-    turtle.rotate(61);
-    
-    turtle.rotate(11.1111);
+function fractal(length, depth) {
+    if (depth == 0) {
+        turtle.forward(length);
+    } else {
+        fractal(length/3, depth-1);
+        turtle.rotate(60);
+        fractal(length/3, depth-1);
+        turtle.rotate(-120);
+        fractal(length/3, depth-1);
+        turtle.rotate(60);
+        fractal(length/3, depth-1);
+    }
 }
 
+fractal(1000, 5);
 turtle.done();

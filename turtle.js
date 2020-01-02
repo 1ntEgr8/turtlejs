@@ -1,15 +1,4 @@
 let nx, ny, dx, dy, duration, startTime; // variables used in animating turtle
-/*
-    When the user calls forward, rotate, backward, ...
-        push the operation to the list
-    When invokes done
-        start executing the operations
-
-    Action object => {
-        action: 'r', // single character code
-        values: [], // array of values passed to dispatch function
-    }
-*/
 
 function degToRad(degrees) {
     return (degrees * Math.PI) / 180;
@@ -18,7 +7,7 @@ function degToRad(degrees) {
 class Turtle {
     constructor(x = 0, y = 0, windowWidth = 100, windowHeight = 100) {
         console.log(
-            "%cTurtle born!",
+            "%c🐢 Turtle born!",
             "color: green; font-size: 2rem; font-weight: bold;"
         );
 
@@ -110,7 +99,6 @@ class Turtle {
                 ny = el.values[1];
                 duration =
                     Math.sqrt(Math.pow(nx - this.x, 2) + Math.pow(ny - this.y, 2)) / this.speed;
-                console.log(duration);
                 dx = ((nx - this.x) * 16) / duration;
                 dy = ((ny - this.y) * 16) / duration;
                 startTime = Date.now();
