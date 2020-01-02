@@ -1,0 +1,29 @@
+{
+  "name": "cute-turtle",
+  "version": "1.0.0",
+  "description": "🐢 Turtle style graphics for the web ",
+  "main": "turtle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1ntEgr8/turtlejs.git"
+  },
+  "keywords": [
+    "animation",
+    "turtle",
+    "graphics",
+    "python",
+    "turtle",
+    "drawing",
+    "svg",
+    "svg graphics"
+  ],
+  "author": "Elton Pinto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1ntEgr8/turtlejs/issues"
+  },
+  "homepage": "https://github.com/1ntEgr8/turtlejs#readme"
+}
