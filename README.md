@@ -3,9 +3,13 @@
 ## Installation
 
 Using script tag
-`src="https://cdn.jsdelivr.net/gh/1ntEgr8/turtlejs/turtle.js`
+```
+src="https://cdn.jsdelivr.net/gh/1ntEgr8/turtlejs/turtle.js
+```
 
 Using npm
-`npm install cute-turtle`
+```
+npm install cute-turtle
+```
 
 Enjoy!
