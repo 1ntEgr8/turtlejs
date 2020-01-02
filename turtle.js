@@ -29,9 +29,9 @@ class Turtle {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         this.heading = 0;
-        this.isAnim = true;
+        this.isAnim = false;
 
-        this.speed = 0.2;
+        this.speed = 1;
 
         this.dParts = [
             {
@@ -85,7 +85,11 @@ class Turtle {
         this.x = this.init_x;
         this.y = this.init_y;
         if (this.dParts.length > 0) {
-            this._animate(this.dParts[0]);
+            if (this.isAnim) {
+                this._animate(this.dParts[0]);
+            } else {
+                this._display();
+            }
         }
     }
 
@@ -143,5 +147,16 @@ class Turtle {
         } else {
             this._animate(this.dParts[this.currentProcessIndex]);
         }
+    }
+
+    _display() {
+        this.dParts.forEach(part => {
+            let s = `${part.type} `;
+            part.values.forEach(val => {
+                s += `${val} `;
+            });
+            this.path += s;
+        });
+        this.turtle.setAttributeNS(null, 'd', this.path);
     }
 }
