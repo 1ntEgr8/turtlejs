@@ -18,9 +18,9 @@ class Turtle {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         this.heading = 0;
-        this.isAnim = false;
+        this.isAnim = true;
 
-        this.speed = 1;
+        this.speed = 0.2;
 
         this.dParts = [
             {
@@ -53,17 +53,69 @@ class Turtle {
         this.currentProcessIndex = 0;
     }
 
+    getX() {
+        return this.x;
+    }
+    
+    getY() {
+        return this.y;
+    }
+
+    getHeading() {
+        return this.heading; // in radians
+    }
+
+    getSpeed() {
+        return this.speed; // speed in pixels / ms
+    }
+
+    getCanvas() {
+        return this.canvas;
+    }
+
+    where() {
+        return {
+            x: this.x,
+            y: this.y
+        }
+    }
+
+    setSpeed(speed) {
+        // adding to dParts list for later processing
+        this.dParts.push({
+            type: 'b',
+            values: [speed]
+        })
+    }
+
     forward(distance) {
         this.x = this.x + distance * Math.cos(this.heading);
         this.y = this.y + distance * Math.sin(this.heading);
         this.dParts.push({
-            type: "L",
+            type: 'L',
             values: [this.x, this.y]
         });
     }
 
+    backward(distance) {
+        this.forward(-distance);
+    }
+
     rotate(degrees) {
         this.heading += degToRad(degrees);
+    }
+
+    moveTo(x, y) {
+        this.x = x;
+        this.y = y;
+        this.dParts.push({
+            type: 'M',
+            values: [this.x, this.y]
+        });
+    }
+
+    home() {
+        this.moveTo(this.init_x, this.init_y);
     }
 
     done() {
@@ -75,7 +127,7 @@ class Turtle {
         this.y = this.init_y;
         if (this.dParts.length > 0) {
             if (this.isAnim) {
-                this._animate(this.dParts[0]);
+                this._animate(this.dParts[this.currentProcessIndex]);
             } else {
                 this._display();
             }
@@ -84,7 +136,9 @@ class Turtle {
 
     _animate(el) {
         switch (el.type) {
-            case "M": {
+            case 'M': {
+                this.x = el.values[0];
+                this.y = el.values[0];
                 this.path += ` M ${el.values[0]} ${el.values[1]}`;
                 this.turtle.setAttributeNS(
                     null,
@@ -94,7 +148,7 @@ class Turtle {
                 this._animateNext();
                 break;
             }
-            case "L": {
+            case 'L': {
                 nx = el.values[0];
                 ny = el.values[1];
                 duration =
@@ -104,6 +158,11 @@ class Turtle {
                 startTime = Date.now();
 
                 this._linearAnimate();
+                break;
+            }
+            case 'b': {
+                this.speed = el.values[0];
+                this._animateNext()
                 break;
             }
             default:
