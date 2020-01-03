@@ -1,4 +1,4 @@
-const turtle = new Turtle(0, 0, 1000, 500);
+const turtle = new Turtle(0, 0, 1000, 1000);
 turtle.setSpeed(1);
 
 function fractal(length, depth) {
@@ -37,6 +37,25 @@ function coolDesign() {
     }
 }
 
+const gosper_map = {
+    "A": (o, size) => gosperCurve(o, size, true),
+    "B": (o, size) => gosperCurve(o, size, false),
+    "-": (o, size) => turtle.rotate(60),
+    "+": (o, size) => turtle.rotate(-60)
+}
+
+// algorithm from https://en.wikipedia.org/wiki/Gosper_curve
+function gosperCurve(order, size, isA) {
+    if (order == 0) {
+        turtle.forward(size);
+    } else {
+        let opString = isA ? "A-B--B+A++AA+B-" : "+A-BB--B-A++A+B";
+        for (let op of opString) {
+            gosper_map[op](order - 1, size);
+        }
+    }
+}
+
 function test() {
     turtle.setStyles({
         "stroke": "red",
@@ -59,5 +78,7 @@ function test() {
 }
 
 // fractal(1000, 5);
-coolDesign();
+// coolDesign();
+turtle.moveTo(200, 200);
+gosperCurve(4, 10);
 turtle.done();
