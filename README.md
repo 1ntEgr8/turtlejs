@@ -1,7 +1,7 @@
 🐢 Turtle style graphics for the web!!
 
 # Turtles!?
-Yep, you heard that right! `turtlejs` is a library that bring your wildest turtle drawings/animations to life.
+Yep, you heard that right! `turtlejs` is a library that can bring your wildest turtle drawings/animations to life.
 
 You can use this library to draw vector graphics. Some examples include fractals, L-systems, iterative patterns. Let your imagination go wilddd!!!
 
