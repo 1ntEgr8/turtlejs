@@ -36,18 +36,6 @@ const turtle = new Turtle(0, 0, 1000, 1000);
 
 The `Turtle` constructor takes in an initial x-position, initial y-position, canvas height, and canvas width. The default values are 0, 0, 100, 100 respectively.
 
-The canvas is where the drawing will appear.
+Take a look at the `demos/` folder to learn how to use your `turtle`.
 
-Now that you've got a turtle, let's look at some of the things you can do with it. 
-
-### Draw and Move
-
-### Turtle Info
-
-### Customization
-
-### Running the animation
-
-### Getting only the drawing, with no animation
-
-Enjoy!
+Have fun!
